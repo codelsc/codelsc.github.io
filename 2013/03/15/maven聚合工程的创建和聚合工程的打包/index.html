@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="jsonp,跨域," />
+  <meta name="keywords" content="maven,聚合工程," />
 
 
 
@@ -87,26 +87,30 @@
 
 
 
-<meta name="description" content="同源策略首先基于安全的原因，浏览器是存在同源策略这个机制的，同源策略阻止从一个源加载的文档或脚本获取或设置另一个源加载的文档的属性。看起来不知道什么意思，实践一下就知道了。
-1.随便建两个网页一个端口是2698，一个2701，按照定义它们是不同源的。">
+<meta name="description" content="第一步：创建父工程millery-manage，如图：右击空白处，new创建新maven工程：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="jsonp 详解">
-<meta property="og:url" content="http://yoursite.com/2013/02/10/jsonp-详解/index.html">
+<meta property="og:title" content="maven聚合工程的创建和聚合工程的打包">
+<meta property="og:url" content="http://yoursite.com/2013/03/15/maven聚合工程的创建和聚合工程的打包/index.html">
 <meta property="og:site_name" content="Lisc's Blog">
-<meta property="og:description" content="同源策略首先基于安全的原因，浏览器是存在同源策略这个机制的，同源策略阻止从一个源加载的文档或脚本获取或设置另一个源加载的文档的属性。看起来不知道什么意思，实践一下就知道了。
-1.随便建两个网页一个端口是2698，一个2701，按照定义它们是不同源的。">
-<meta property="og:image" content="http://yoursite.com/images_post/jsonp/jsonp_1.png">
-<meta property="og:image" content="http://yoursite.com/images_post/jsonp/jsonp_2.png">
-<meta property="og:image" content="http://yoursite.com/images_post/jsonp/jsonp_3.png">
-<meta property="og:image" content="http://yoursite.com/images_post/jsonp/jsonp_4.png">
-<meta property="og:image" content="http://yoursite.com/images_post/jsonp/jsonp_5.png">
-<meta property="og:image" content="http://yoursite.com/images_post/jsonp/jsonp_6.png">
-<meta property="og:updated_time" content="2017-03-10T02:18:44.054Z">
+<meta property="og:description" content="第一步：创建父工程millery-manage，如图：右击空白处，new创建新maven工程：">
+<meta property="og:image" content="http://yoursite.com/images_post/maven_pom/maven_1.png">
+<meta property="og:image" content="http://yoursite.com/images_post/maven_pom/maven_2.png">
+<meta property="og:image" content="http://yoursite.com/images_post/maven_pom/maven_3.png">
+<meta property="og:image" content="http://yoursite.com/images_post/maven_pom/maven_4.png">
+<meta property="og:image" content="http://yoursite.com/images_post/maven_pom/maven_5.png">
+<meta property="og:image" content="http://yoursite.com/images_post/maven_pom/maven_6.png">
+<meta property="og:image" content="http://yoursite.com/images_post/maven_pom/maven_7.png">
+<meta property="og:image" content="http://yoursite.com/images_post/maven_pom/maven_8.png">
+<meta property="og:image" content="http://yoursite.com/images_post/maven_pom/maven_9.png">
+<meta property="og:image" content="http://yoursite.com/images_post/maven_pom/maven_10.png">
+<meta property="og:image" content="http://yoursite.com/images_post/maven_pom/maven_11.png">
+<meta property="og:image" content="http://yoursite.com/images_post/maven_pom/maven_12.png">
+<meta property="og:image" content="http://yoursite.com/images_post/maven_pom/maven_13.png">
+<meta property="og:updated_time" content="2017-03-10T02:16:05.331Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="jsonp 详解">
-<meta name="twitter:description" content="同源策略首先基于安全的原因，浏览器是存在同源策略这个机制的，同源策略阻止从一个源加载的文档或脚本获取或设置另一个源加载的文档的属性。看起来不知道什么意思，实践一下就知道了。
-1.随便建两个网页一个端口是2698，一个2701，按照定义它们是不同源的。">
-<meta name="twitter:image" content="http://yoursite.com/images_post/jsonp/jsonp_1.png">
+<meta name="twitter:title" content="maven聚合工程的创建和聚合工程的打包">
+<meta name="twitter:description" content="第一步：创建父工程millery-manage，如图：右击空白处，new创建新maven工程：">
+<meta name="twitter:image" content="http://yoursite.com/images_post/maven_pom/maven_1.png">
 
 
 
@@ -134,13 +138,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2013/02/10/jsonp-详解/"/>
+  <link rel="canonical" href="http://yoursite.com/2013/03/15/maven聚合工程的创建和聚合工程的打包/"/>
 
 
 
 
 
-  <title> jsonp 详解 | Lisc's Blog </title>
+  <title> maven聚合工程的创建和聚合工程的打包 | Lisc's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -300,7 +304,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2013/02/10/jsonp-详解/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2013/03/15/maven聚合工程的创建和聚合工程的打包/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="李士超">
@@ -324,7 +328,7 @@
             
             
               
-                jsonp 详解
+                maven聚合工程的创建和聚合工程的打包
               
             
           </h1>
@@ -339,8 +343,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2013-02-10T08:53:56+08:00">
-                2013-02-10
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2013-03-15T19:53:25+08:00">
+                2013-03-15
               </time>
             
 
@@ -362,8 +366,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">javascript</span>
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
                   </a>
                 </span>
 
@@ -380,8 +384,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2013/02/10/jsonp-详解/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/02/10/jsonp-详解/" itemprop="commentCount"></span>
+                <a href="/2013/03/15/maven聚合工程的创建和聚合工程的打包/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/03/15/maven聚合工程的创建和聚合工程的打包/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -389,7 +393,7 @@
 
           
           
-             <span id="/2013/02/10/jsonp-详解/" class="leancloud_visitors" data-flag-title="jsonp 详解">
+             <span id="/2013/03/15/maven聚合工程的创建和聚合工程的打包/" class="leancloud_visitors" data-flag-title="maven聚合工程的创建和聚合工程的打包">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -418,29 +422,19 @@
       
 
       
-        <h1 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h1><p>首先基于安全的原因，浏览器是存在同源策略这个机制的，同源策略阻止从一个源加载的文档或脚本获取或设置另一个源加载的文档的属性。看起来不知道什么意思，实践一下就知道了。</p>
-<h2 id="1-随便建两个网页"><a href="#1-随便建两个网页" class="headerlink" title="1.随便建两个网页"></a>1.随便建两个网页</h2><p>一个端口是2698，一个2701，按照定义它们是不同源的。<br><img src="/images_post/jsonp/jsonp_1.png" alt=""></p>
-<a id="more"></a>
-<p>##2.用jQuery发起不同源的请求<br>在2698端口的网页上添加一个按钮，Click事件随便发起两个向端口为2701域的请求。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$(<span class="string">"#getOtherDomainThings"</span>).click(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    $.get(<span class="string">"http://localhost:2701/Scripts/jquery-1.4.4.min.js"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(data)</div><div class="line">    &#125;)</div><div class="line"></div><div class="line">    $.get(<span class="string">"http://localhost:2701/home/index"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(data)</div><div class="line">    &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p>根据同源策略，很明显会悲剧了。浏览器会阻止，根本不会发起这个请求。（not allowed by Access-Control-Allow-Origin）<br><img src="/images_post/jsonp/jsonp_2.png" alt=""></p>
-<p>OK，原来jsonp是要解决这个问题的。</p>
-<h1 id="script标签的跨域能力"><a href="#script标签的跨域能力" class="headerlink" title="script标签的跨域能力"></a>script标签的跨域能力</h1><p>不知道大家知不知道CDN这个东西，例如微软的CDN，使用它，我们的网页可以不提供jQuery，由微软的网站帮我们提供：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script src=<span class="string">"http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.8.0.js"</span> type=<span class="string">"text/javascript"</span>&gt;&lt;/script&gt;</div></pre></td></tr></table></figure></p>
-<p>回到我们的2698端口的网页，上面我们在Click事件里有一个对2701端口域的jQuery文件的请求，这次使用script标签来请求。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script type=<span class="string">"text/javascript"</span> src=<span class="string">"http://localhost:2701/Scripts/jquery-1.4.4.min.js"</span>&gt;&lt;/script&gt;</div></pre></td></tr></table></figure></p>
-<p>当然，200，OK了<br><img src="/images_post/jsonp/jsonp_3.png" alt=""></p>
-<p>同样是端口2698的网页发起对2701域的请求，放在script里设置scr属性的OK了，另一个方式就悲剧。利用script的跨域能力，这就是jsonp的基础。</p>
-<h1 id="利用script获取不同源的json"><a href="#利用script获取不同源的json" class="headerlink" title="利用script获取不同源的json"></a>利用script获取不同源的json</h1><p>既然它叫jsonp，很明显目的还是json，而且是跨域获取。根据上面的分析，很容易想到：利用js构造一个script标签，把json的url赋给script的scr属性，把这个script插入到dom里，让浏览器去获取。实践：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">CreateScript</span>(<span class="params">src</span>) </span>&#123;</div><div class="line">    $(<span class="string">"&lt;script&gt;&lt;//script&gt;"</span>).attr(<span class="string">"src"</span>, src).appendTo(<span class="string">"body"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>添加一个按钮事件来测试一下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$(<span class="string">"#getOtherDomainJson"</span>).click(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    $.get(<span class="string">'http://localhost:2701/home/somejson'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(data)</div><div class="line">    &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p><img src="/images_post/jsonp/jsonp_4.png" alt=""><br>首先，第一个浏览器，<a href="http://localhost:2701/home/somejson这个Url的确是存在一个json的，而且在2698网页上用script标签来请求这个2701这个Url也是200OK的，但是最下面报js语法错误了。原来用script标签加载完后，会立即把响应当js去执行，很明显{&quot;Email&quot;:&quot;zhww@outlook.com&quot;,&quot;Remark&quot;:&quot;我来自遥远的东方&quot;}不是合法的js语句。" target="_blank" rel="external">http://localhost:2701/home/somejson这个Url的确是存在一个json的，而且在2698网页上用script标签来请求这个2701这个Url也是200OK的，但是最下面报js语法错误了。原来用script标签加载完后，会立即把响应当js去执行，很明显{&quot;Email&quot;:&quot;zhww@outlook.com&quot;,&quot;Remark&quot;:&quot;我来自遥远的东方&quot;}不是合法的js语句。</a></p>
-<p>#利用script获取异域的jsonp<br>显然，把上面的json放到一个回调方法里是最简单的方法。例如，变成这样<br><img src="/images_post/jsonp/jsonp_5.png" alt=""></p>
-<p>如果存在jsonpcallback这个方法，那么jsonpcallback({“Email”:”zhww@outlook.com”,”Remark”:”我来自遥远的东方”})就是合法的js语句。<br>由于服务器不知道客户端的回调是什么，不可能hardcode成jsonpcallback，所以就带一个QueryString让客户端告诉服务端，回调方法是什么，当然，QueryString的key要遵从服务端的约定，上面的是”callback“。<br>添加回调函数：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">jsonpcallback</span>(<span class="params">json</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(json)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>把前面的方法稍微改改参数：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(<span class="string">"#getJsonpByHand"</span>).click(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    CreateScript(<span class="string">"http://localhost:2701/home/somejsonp?callback=jsonpcallback"</span>)</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p><img src="/images_post/jsonp/jsonp_6.png" alt=""></p>
-<p>200OK，服务器返回jsonpcallback({“Email”:”zhww@outlook.com”,”Remark”:”我来自遥远的 东方”})，我们也写了jsonpcallback方法，当然会执行。OK顺利获得了json。没错，到这里就是jsonp的全部。</p>
-<h1 id="利用jQuery获取jsonp"><a href="#利用jQuery获取jsonp" class="headerlink" title="利用jQuery获取jsonp"></a>利用jQuery获取jsonp</h1><p>上面的方式中，又要插入script标签，又要定义一个回调，略显麻烦，利用jQuery可以直接得到想要的json数据，同样是上面的jsonp<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">$(<span class="string">"#getJsonpByJquery"</span>).click(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    $.ajax(&#123;</div><div class="line">        <span class="attr">url</span>: <span class="string">'http://localhost:2701/home/somejsonp'</span>,</div><div class="line">        <span class="attr">dataType</span>: <span class="string">"jsonp"</span>,</div><div class="line">        <span class="attr">jsonp</span>: <span class="string">"callback"</span>,</div><div class="line">        <span class="attr">success</span>: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(data)</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p>得到的结果跟上面类似。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>一句话就是利用script标签绕过同源策略，获得一个类似这样的数据，jsonpcallback是页面存在的回调方法，参数就是想得到的json。</p>
-<p>jsonpcallback({“Email”:”zhww@outlook.com”,”Remark”:”我来自遥远的东方”})</p>
-<p>ADD 原生js:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"btn"</span>&gt;</span>click<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">$</span>(<span class="params">str</span>)</span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="built_in">document</span>.getElementById(str)</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">CreateScript</span>(<span class="params">src</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> Scrip=<span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</div><div class="line">        Scrip.src=src;</div><div class="line">        <span class="built_in">document</span>.body.appendChild(Scrip);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">jsonpcallback</span>(<span class="params">json</span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(json);<span class="comment">//Object &#123; email="中国", email2="中国222"&#125;</span></div><div class="line">    &#125;</div><div class="line">    $(<span class="string">'btn'</span>).onclick=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">      CreateScript(<span class="string">"http://localhost:51335/somejson?callback=jsonpcallback"</span>)    </div><div class="line">    &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
+        <h2 id="第一步：创建父工程millery-manage，如图："><a href="#第一步：创建父工程millery-manage，如图：" class="headerlink" title="第一步：创建父工程millery-manage，如图："></a>第一步：创建父工程millery-manage，如图：</h2><p>右击空白处，new创建新maven工程：<br><img src="/images_post/maven_pom/maven_1.png" alt=""><br><a id="more"></a></p>
+<p>这里跳过默认的骨架，使用自动义的骨架<br><img src="/images_post/maven_pom/maven_2.png" alt=""></p>
+<p>这里父工程必须使用pom打包方式<br><img src="/images_post/maven_pom/maven_3.png" alt=""></p>
+<h2 id="第二步：创建子工程"><a href="#第二步：创建子工程" class="headerlink" title="第二步：创建子工程"></a>第二步：创建子工程</h2><p>右击父工程，创建maven module工程：<br><img src="/images_post/maven_pom/maven_4.png" alt=""></p>
+<p>跳骨默认骨架，输入子工程名<br><img src="/images_post/maven_pom/maven_5.png" alt=""></p>
+<p>定义子工程，这里是以表现层为例，是web工程，所以打包方式为war，如果是其他非web工程就可以打包成jar，这一点需要注意。<br><img src="/images_post/maven_pom/maven_6.png" alt=""></p>
+<p>其他工程步骤类似，需要注意的是打包方式的选择。<br>工程创建完成后现象:<br>所有的子工程目录不是单独的存在，而是直接保存在父工程目录下。<br><img src="/images_post/maven_pom/maven_7.png" alt=""></p>
+<p>父工程pom.xml文件内容：<br><img src="/images_post/maven_pom/maven_8.png" alt=""></p>
+<p>子工程pom.xml文件内容：<br><img src="/images_post/maven_pom/maven_9.png" alt=""></p>
+<p>硬盘中聚合工程存储目录结构：<br><img src="/images_post/maven_pom/maven_10.png" alt=""></p>
+<h2 id="第三步：打包项目，此时不需要每个项目都打包，聚合工程只需要对父工程进行打包即可。"><a href="#第三步：打包项目，此时不需要每个项目都打包，聚合工程只需要对父工程进行打包即可。" class="headerlink" title="第三步：打包项目，此时不需要每个项目都打包，聚合工程只需要对父工程进行打包即可。"></a>第三步：打包项目，此时不需要每个项目都打包，聚合工程只需要对父工程进行打包即可。</h2><p>右击millery-manage工程–&gt;Run As–&gt;Maven Build …，然后出现如图的对话框，按图操作。<br><img src="/images_post/maven_pom/maven_11.png" alt=""></p>
+<p>控制台输出内容：<br><img src="/images_post/maven_pom/maven_12.png" alt=""></p>
+<p>##第四步：最后一步看打包后的效果<br>进入millery-manage-web硬盘目录–&gt;target–&gt;右击millery-manage-web.war使用压缩软件打开–&gt;WEB-INF–&gt;lib，在lib中就可以看到下面三个jar包，就是聚合工程中的另外三个子工程，这就意味着这三个工程已经包含在web工程下，无需再重复的进行打包操作。<br><img src="/images_post/maven_pom/maven_13.png" alt=""></p>
 
       
     </div>
@@ -464,9 +458,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/jsonp/" rel="tag"># jsonp</a>
+            <a href="/tags/maven/" rel="tag"># maven</a>
           
-            <a href="/tags/跨域/" rel="tag"># 跨域</a>
+            <a href="/tags/聚合工程/" rel="tag"># 聚合工程</a>
           
         </div>
       
@@ -479,14 +473,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2013/02/10/jsonp-详解/" rel="next" title="jsonp 详解">
+                <i class="fa fa-chevron-left"></i> jsonp 详解
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2013/03/15/maven聚合工程的创建和聚合工程的打包/" rel="prev" title="maven聚合工程的创建和聚合工程的打包">
-                maven聚合工程的创建和聚合工程的打包 <i class="fa fa-chevron-right"></i>
+              <a href="/2014/02/13/hello-world/" rel="prev" title="Hello World">
+                Hello World <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -513,8 +511,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2013/02/10/jsonp-详解/"
-           data-title="jsonp 详解" data-url="http://yoursite.com/2013/02/10/jsonp-详解/">
+      <div class="ds-thread" data-thread-key="2013/03/15/maven聚合工程的创建和聚合工程的打包/"
+           data-title="maven聚合工程的创建和聚合工程的打包" data-url="http://yoursite.com/2013/03/15/maven聚合工程的创建和聚合工程的打包/">
       </div>
     
   </div>
@@ -634,7 +632,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#同源策略"><span class="nav-number">1.</span> <span class="nav-text">同源策略</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-随便建两个网页"><span class="nav-number">1.1.</span> <span class="nav-text">1.随便建两个网页</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#script标签的跨域能力"><span class="nav-number">2.</span> <span class="nav-text">script标签的跨域能力</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#利用script获取不同源的json"><span class="nav-number">3.</span> <span class="nav-text">利用script获取不同源的json</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#利用jQuery获取jsonp"><span class="nav-number">4.</span> <span class="nav-text">利用jQuery获取jsonp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一步：创建父工程millery-manage，如图："><span class="nav-number">1.</span> <span class="nav-text">第一步：创建父工程millery-manage，如图：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二步：创建子工程"><span class="nav-number">2.</span> <span class="nav-text">第二步：创建子工程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三步：打包项目，此时不需要每个项目都打包，聚合工程只需要对父工程进行打包即可。"><span class="nav-number">3.</span> <span class="nav-text">第三步：打包项目，此时不需要每个项目都打包，聚合工程只需要对父工程进行打包即可。</span></a></li></ol></div>
             
 
           </div>
