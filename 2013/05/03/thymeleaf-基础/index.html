@@ -1,0 +1,1091 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="thymeleaf,模板引擎," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="（一）Thymeleaf 是个什么？简单说， Thymeleaf 是一个跟 Velocity、FreeMarker类似的模板引擎，它可以完全替代JSP。相较与其他的模板引擎，它有如下三个极吸引人的特点：
+1.Thymeleaf 在有网络和无网络的环境下皆可运行，即它可以让美工在浏览器查看页面的静态效果，也可以让程序员在服务器查看带数据的动态页面效果。这是由于它支持 html原型，然后在html标签">
+<meta property="og:type" content="article">
+<meta property="og:title" content="thymeleaf 基础">
+<meta property="og:url" content="http://yoursite.com/2013/05/03/thymeleaf-基础/index.html">
+<meta property="og:site_name" content="Lisc's Blog">
+<meta property="og:description" content="（一）Thymeleaf 是个什么？简单说， Thymeleaf 是一个跟 Velocity、FreeMarker类似的模板引擎，它可以完全替代JSP。相较与其他的模板引擎，它有如下三个极吸引人的特点：
+1.Thymeleaf 在有网络和无网络的环境下皆可运行，即它可以让美工在浏览器查看页面的静态效果，也可以让程序员在服务器查看带数据的动态页面效果。这是由于它支持 html原型，然后在html标签">
+<meta property="og:updated_time" content="2017-03-20T03:08:19.215Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="thymeleaf 基础">
+<meta name="twitter:description" content="（一）Thymeleaf 是个什么？简单说， Thymeleaf 是一个跟 Velocity、FreeMarker类似的模板引擎，它可以完全替代JSP。相较与其他的模板引擎，它有如下三个极吸引人的特点：
+1.Thymeleaf 在有网络和无网络的环境下皆可运行，即它可以让美工在浏览器查看页面的静态效果，也可以让程序员在服务器查看带数据的动态页面效果。这是由于它支持 html原型，然后在html标签">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2013/05/03/thymeleaf-基础/"/>
+
+
+
+
+
+  <title> thymeleaf 基础 | Lisc's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e62808ef7fe45b8bb9777f20f9e49771";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Lisc's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">Welcome</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2013/05/03/thymeleaf-基础/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="李士超">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Lisc's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Lisc's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                thymeleaf 基础
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2013-05-03T12:30:33+08:00">
+                2013-05-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/thymeleaf/" itemprop="url" rel="index">
+                    <span itemprop="name">thymeleaf</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2013/05/03/thymeleaf-基础/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/05/03/thymeleaf-基础/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2013/05/03/thymeleaf-基础/" class="leancloud_visitors" data-flag-title="thymeleaf 基础">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="（一）Thymeleaf-是个什么？"><a href="#（一）Thymeleaf-是个什么？" class="headerlink" title="（一）Thymeleaf 是个什么？"></a>（一）Thymeleaf 是个什么？</h1><p>简单说， Thymeleaf 是一个跟 Velocity、FreeMarker类似的模板引擎，它可以完全替代JSP。相较与其他的模板引擎，它有如下三个极吸引人的特点：</p>
+<h3 id="1-Thymeleaf-在有网络和无网络的环境下皆可运行，即它可以让美工在浏览器查看页面的静态效果，也可以让程序员在服务器查看带数据的动态页面效果。这是由于它支持-html原型，然后在html标签里增加额外的属性来达到模板-数据的展示方式。浏览器解释html时会忽略未定义的标签属性，所以-thymeleaf的模板可以静态地运行；当有数据返回到页面时，Thymeleaf标签会动态地替换掉静态内容，使页面动态显示。"><a href="#1-Thymeleaf-在有网络和无网络的环境下皆可运行，即它可以让美工在浏览器查看页面的静态效果，也可以让程序员在服务器查看带数据的动态页面效果。这是由于它支持-html原型，然后在html标签里增加额外的属性来达到模板-数据的展示方式。浏览器解释html时会忽略未定义的标签属性，所以-thymeleaf的模板可以静态地运行；当有数据返回到页面时，Thymeleaf标签会动态地替换掉静态内容，使页面动态显示。" class="headerlink" title="1.Thymeleaf 在有网络和无网络的环境下皆可运行，即它可以让美工在浏览器查看页面的静态效果，也可以让程序员在服务器查看带数据的动态页面效果。这是由于它支持 html原型，然后在html标签里增加额外的属性来达到模板+数据的展示方式。浏览器解释html时会忽略未定义的标签属性，所以 thymeleaf的模板可以静态地运行；当有数据返回到页面时，Thymeleaf标签会动态地替换掉静态内容，使页面动态显示。"></a>1.Thymeleaf 在有网络和无网络的环境下皆可运行，即它可以让美工在浏览器查看页面的静态效果，也可以让程序员在服务器查看带数据的动态页面效果。这是由于它支持 html原型，然后在html标签里增加额外的属性来达到模板+数据的展示方式。浏览器解释html时会忽略未定义的标签属性，所以 thymeleaf的模板可以静态地运行；当有数据返回到页面时，Thymeleaf标签会动态地替换掉静态内容，使页面动态显示。</h3><h3 id="2-Thymeleaf-开箱即用的特性。它提供标准和spring标准两种方言，可以直接套用模板实现JSTL、OGNL表达式效果，避免每天套模板、该jstl、改标签的困扰。同时开发人员也可以扩展和创建自定义的方言。"><a href="#2-Thymeleaf-开箱即用的特性。它提供标准和spring标准两种方言，可以直接套用模板实现JSTL、OGNL表达式效果，避免每天套模板、该jstl、改标签的困扰。同时开发人员也可以扩展和创建自定义的方言。" class="headerlink" title="2.Thymeleaf 开箱即用的特性。它提供标准和spring标准两种方言，可以直接套用模板实现JSTL、OGNL表达式效果，避免每天套模板、该jstl、改标签的困扰。同时开发人员也可以扩展和创建自定义的方言。"></a>2.Thymeleaf 开箱即用的特性。它提供标准和spring标准两种方言，可以直接套用模板实现JSTL、OGNL表达式效果，避免每天套模板、该jstl、改标签的困扰。同时开发人员也可以扩展和创建自定义的方言。</h3><h3 id="3-Thymeleaf-提供spring标准方言和一个与SpringMVC完美集成的可选模块，可以快速的实现表单绑定、属性编辑器、国际化等功能。"><a href="#3-Thymeleaf-提供spring标准方言和一个与SpringMVC完美集成的可选模块，可以快速的实现表单绑定、属性编辑器、国际化等功能。" class="headerlink" title="3. Thymeleaf 提供spring标准方言和一个与SpringMVC完美集成的可选模块，可以快速的实现表单绑定、属性编辑器、国际化等功能。"></a>3. Thymeleaf 提供spring标准方言和一个与SpringMVC完美集成的可选模块，可以快速的实现表单绑定、属性编辑器、国际化等功能。</h3><a id="more"></a>
+<h1 id="（二）应用"><a href="#（二）应用" class="headerlink" title="（二）应用"></a>（二）应用</h1><h2 id="1-简单的-Thymeleaf-应用"><a href="#1-简单的-Thymeleaf-应用" class="headerlink" title="1.简单的 Thymeleaf 应用"></a>1.简单的 Thymeleaf 应用</h2><h3 id="1）只需加入thymeleaf-2-1-4-RELEASE-jar（http-www-thymeleaf-org-download-html-）包，若用maven，则加入如下配置"><a href="#1）只需加入thymeleaf-2-1-4-RELEASE-jar（http-www-thymeleaf-org-download-html-）包，若用maven，则加入如下配置" class="headerlink" title="1）只需加入thymeleaf-2.1.4.RELEASE.jar（http://www.thymeleaf.org/download.html ）包，若用maven，则加入如下配置"></a>1）只需加入thymeleaf-2.1.4.RELEASE.jar（<a href="http://www.thymeleaf.org/download.html" target="_blank" rel="external">http://www.thymeleaf.org/download.html</a> ）包，若用maven，则加入如下配置</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.thymeleaf<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>thymeleaf<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="2）然后增加头文件（如下）"><a href="#2）然后增加头文件（如下）" class="headerlink" title="2）然后增加头文件（如下）"></a>2）然后增加头文件（如下）</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">xmlns</span>=<span class="string">"http://www.w3.org/1999/xhtml"</span></span></div><div class="line">      <span class="attr">xmlns:th</span>=<span class="string">"http://www.thymeleaf.org"</span>&gt;</div></pre></td></tr></table></figure>
+<h3 id="3）就可以用th标签动态替换掉静态数据了。如下图，后台传出的message会将静态数据“RedChair”替换掉，若访问静态页面，则显示数据“Red-Chair”。"><a href="#3）就可以用th标签动态替换掉静态数据了。如下图，后台传出的message会将静态数据“RedChair”替换掉，若访问静态页面，则显示数据“Red-Chair”。" class="headerlink" title="3）就可以用th标签动态替换掉静态数据了。如下图，后台传出的message会将静态数据“RedChair”替换掉，若访问静态页面，则显示数据“Red Chair”。"></a>3）就可以用th标签动态替换掉静态数据了。如下图，后台传出的message会将静态数据“RedChair”替换掉，若访问静态页面，则显示数据“Red Chair”。</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">td</span> <span class="attr">th:text</span>=<span class="string">"$&#123;message&#125;"</span>&gt;</span>Red Chair<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="2-整合spring"><a href="#2-整合spring" class="headerlink" title="2.整合spring"></a>2.整合spring</h2><h3 id="1）加入thymeleaf-spring4-2-1-4-RELEASE-jar（http-www-thymeleaf-org-download-html-）包，若用maven，则加入如下配置"><a href="#1）加入thymeleaf-spring4-2-1-4-RELEASE-jar（http-www-thymeleaf-org-download-html-）包，若用maven，则加入如下配置" class="headerlink" title="1）加入thymeleaf-spring4-2.1.4.RELEASE.jar（http://www.thymeleaf.org/download.html ）包，若用maven，则加入如下配置"></a>1）加入thymeleaf-spring4-2.1.4.RELEASE.jar（<a href="http://www.thymeleaf.org/download.html" target="_blank" rel="external">http://www.thymeleaf.org/download.html</a> ）包，若用maven，则加入如下配置</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.thymeleaf<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>thymeleaf-spring3<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="2）在servlet配置文件中加入如下代码"><a href="#2）在servlet配置文件中加入如下代码" class="headerlink" title="2）在servlet配置文件中加入如下代码"></a>2）在servlet配置文件中加入如下代码</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- Scans the classpath of this application for @Components to deploy as beans --&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"com.test.thymeleaf.controller"</span> /&gt;</span></div><div class="line"></div><div class="line">       <span class="comment">&lt;!-- Configures the @Controller programming model --&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">mvc:annotation-driven</span> /&gt;</span></div><div class="line"></div><div class="line">        <span class="comment">&lt;!--Resolves view names to protected .jsp resources within the /WEB-INF/views directory --&gt;</span></div><div class="line">        <span class="comment">&lt;!--springMVC+jsp的跳转页面配置--&gt;</span></div><div class="line">       <span class="comment">&lt;!--&lt;bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"&gt;--&gt;</span></div><div class="line">              <span class="comment">&lt;!--&lt;property name="prefix" value="/WEB-INF/views/" /&gt;--&gt;</span></div><div class="line">              <span class="comment">&lt;!--&lt;property name="suffix" value=".jsp" /&gt;--&gt;</span></div><div class="line">       <span class="comment">&lt;!--&lt;/bean&gt;--&gt;</span></div><div class="line"></div><div class="line">       <span class="comment">&lt;!--springMVC+thymeleaf的跳转页面配置--&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"templateResolver"</span></span></div><div class="line">          <span class="attr">class</span>=<span class="string">"org.thymeleaf.templateresolver.ServletContextTemplateResolver"</span>&gt;</div><div class="line">         <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"prefix"</span> <span class="attr">value</span>=<span class="string">"/WEB-INF/views/"</span> /&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"suffix"</span> <span class="attr">value</span>=<span class="string">".html"</span> /&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"templateMode"</span> <span class="attr">value</span>=<span class="string">"HTML5"</span> /&gt;</span></div><div class="line">       <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line">       <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"templateEngine"</span></span></div><div class="line">           <span class="attr">class</span>=<span class="string">"org.thymeleaf.spring4.SpringTemplateEngine"</span>&gt;</div><div class="line">          <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"templateResolver"</span> <span class="attr">ref</span>=<span class="string">"templateResolver"</span> /&gt;</span></div><div class="line">       <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line">       <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"org.thymeleaf.spring4.view.ThymeleafViewResolver"</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"templateEngine"</span> <span class="attr">ref</span>=<span class="string">"templateEngine"</span> /&gt;</span></div><div class="line">       <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="3）将静态页面加到项目中，更改文件头，加入th标签即可。"><a href="#3）将静态页面加到项目中，更改文件头，加入th标签即可。" class="headerlink" title="3）将静态页面加到项目中，更改文件头，加入th标签即可。"></a>3）将静态页面加到项目中，更改文件头，加入th标签即可。</h3><h2 id="3-th标签整理"><a href="#3-th标签整理" class="headerlink" title="3.th标签整理"></a>3.th标签整理</h2><h3 id="1）简单表达式"><a href="#1）简单表达式" class="headerlink" title="1）简单表达式"></a>1）简单表达式</h3><p>–变量表达式  ${……}<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"userName"</span> <span class="attr">value</span>=<span class="string">"James Carrot"</span> <span class="attr">th:value</span>=<span class="string">"$&#123;user.name&#125;"</span> /&gt;</span></div></pre></td></tr></table></figure></p>
+<p>上述代码为引用user对象的name属性值。</p>
+<p>–选择/星号表达式 *{……}<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:object</span>=<span class="string">"$&#123;session.user&#125;"</span>&gt;</span>                                                                       </div><div class="line">     <span class="tag">&lt;<span class="name">p</span>&gt;</span>Nationality: <span class="tag">&lt;<span class="name">span</span> <span class="attr">th:text</span>=<span class="string">"*&#123;nationality&#125;"</span>&gt;</span>Saturn<span class="tag">&lt;/<span class="name">span</span>&gt;</span>.<span class="tag">&lt;/<span class="name">p</span>&gt;</span>    </div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>选择表达式一般跟在th:object后，直接取object中的属性。</p>
+<p>–文字国际化表达式  #{……}<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">th:utext</span>=<span class="string">"#&#123;home.welcome&#125;"</span>&gt;</span>Welcome to our grocery store!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>调用国际化的welcome语句,国际化资源文件如下<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">resource_en_US.properties：</div><div class="line"></div><div class="line">home.welcome=Welcome to here！</div><div class="line"></div><div class="line">resource_zh_CN.properties：</div><div class="line"></div><div class="line">home.welcome=欢迎您的到来！</div></pre></td></tr></table></figure></p>
+<p>– URL表达式  @{……}<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"details.html"</span> <span class="attr">th:href</span>=<span class="string">"@&#123;/order/details(orderId=$&#123;o.id&#125;)&#125;"</span>&gt;</span>view<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>@{……}支持决定路径和相对路径。其中相对路径又支持跨上下文调用url和协议的引用（//code.jquery.com/jquery-2.0.3.min.js）。<br>当URL为后台传出的参数时，代码如下<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"../../static/assets/images/qr-code.jpg"</span> <span class="attr">th:src</span>=<span class="string">"@&#123;$&#123;path&#125;&#125;"</span> <span class="attr">alt</span>=<span class="string">"二维码"</span> /&gt;</span></div></pre></td></tr></table></figure></p>
+<h3 id="2）常用的th标签"><a href="#2）常用的th标签" class="headerlink" title="2）常用的th标签"></a>2）常用的th标签</h3><p>–简单数据转换（数字，日期）<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dt</span>&gt;</span>价格<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dd</span> <span class="attr">th:text</span>=<span class="string">"$&#123;#numbers.formatDecimal(product.price, 1, 2)&#125;"</span>&gt;</span>180<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dt</span>&gt;</span>进货日期<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dd</span> <span class="attr">th:text</span>=<span class="string">"$&#123;#dates.format(product.availableFrom, 'yyyy-MM-dd')&#125;"</span>&gt;</span>2014-12-01<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>–字符串拼接<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dd</span> <span class="attr">th:text</span>=<span class="string">"$&#123;'$'+product.price&#125;"</span>&gt;</span>235<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>–转义和非转义文本<br>当后台传出的数据为“This is an &lt;em&gt;HTML&lt;/em&gt; text. &lt;b&gt;Enjoy yourself!&lt;/b&gt;”时，若页面代码如下则出现两种不同的结果<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:text</span>=<span class="string">"$&#123;html&#125;"</span>&gt;</span></div><div class="line">　　This is an &amp;lt;em&amp;gt;HTML&amp;lt;/em&amp;gt; text. &amp;lt;b&amp;gt;Enjoy yourself!&amp;lt;/b&amp;gt;</div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span> </div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:utext</span>=<span class="string">"$&#123;html&#125;"</span>&gt;</span></div><div class="line">　　This is an <span class="tag">&lt;<span class="name">em</span>&gt;</span>HTML<span class="tag">&lt;/<span class="name">em</span>&gt;</span> text. <span class="tag">&lt;<span class="name">b</span>&gt;</span>Enjoy yourself!<span class="tag">&lt;/<span class="name">b</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>–表单中<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">th:action</span>=<span class="string">"@&#123;/bb&#125;"</span> <span class="attr">th:object</span>=<span class="string">"$&#123;user&#125;"</span> <span class="attr">method</span>=<span class="string">"post"</span> <span class="attr">th:method</span>=<span class="string">"post"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">th:field</span>=<span class="string">"*&#123;name&#125;"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">th:field</span>=<span class="string">"*&#123;msg&#125;"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>–显示页面的数据迭代<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--用 th:remove 移除除了第一个外的静态数据，用第一个tr标签进行循环迭代显示--&gt;</span></div><div class="line">　　　　<span class="tag">&lt;<span class="name">tbody</span> <span class="attr">th:remove</span>=<span class="string">"all-but-first"</span>&gt;</span></div><div class="line">　　　　　　　　　　<span class="comment">&lt;!--将后台传出的 productList 的集合进行迭代，用product参数接收，通过product访问属性值--&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">tr</span> <span class="attr">th:each</span>=<span class="string">"product:$&#123;productList&#125;"</span>&gt;</span></div><div class="line">　　　　　　　　　　　　<span class="comment">&lt;!--用count进行统计，有顺序的显示--&gt;</span></div><div class="line">　　　　　　　　　　　　<span class="tag">&lt;<span class="name">td</span> <span class="attr">th:text</span>=<span class="string">"$&#123;productStat.count&#125;"</span>&gt;</span>1<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">td</span> <span class="attr">th:text</span>=<span class="string">"$&#123;product.description&#125;"</span>&gt;</span>Red Chair<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">td</span> <span class="attr">th:text</span>=<span class="string">"$&#123;'$' + #numbers.formatDecimal(product.price, 1, 2)&#125;"</span>&gt;</span>$123<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">td</span> <span class="attr">th:text</span>=<span class="string">"$&#123;#dates.format(product.availableFrom, 'yyyy-MM-dd')&#125;"</span>&gt;</span>2014-12-01<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">                <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>White table<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>$200<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>15-Jul-2013<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">                <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>Reb table<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>$200<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>15-Jul-2013<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">                <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>Blue table<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>$200<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>15-Jul-2013<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">                <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>–条件判断<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">th:if</span>=<span class="string">"$&#123;product.price lt 100&#125;"</span> <span class="attr">class</span>=<span class="string">"offer"</span>&gt;</span>Special offer!<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>不能用”&lt;”，”&gt;”等符号，要用”lt”等替代<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 当gender存在时，选择对应的选项；若gender不存在或为null时，取得customer对象的name--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">td</span> <span class="attr">th:switch</span>=<span class="string">"$&#123;customer.gender?.name()&#125;"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">th:case</span>=<span class="string">"'MALE'"</span> <span class="attr">src</span>=<span class="string">"../../../images/male.png"</span> <span class="attr">th:src</span>=<span class="string">"@&#123;/images/male.png&#125;"</span> <span class="attr">alt</span>=<span class="string">"Male"</span> /&gt;</span> <span class="comment">&lt;!-- Use "/images/male.png" image --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">th:case</span>=<span class="string">"'FEMALE'"</span> <span class="attr">src</span>=<span class="string">"../../../images/female.png"</span> <span class="attr">th:src</span>=<span class="string">"@&#123;/images/female.png&#125;"</span> <span class="attr">alt</span>=<span class="string">"Female"</span> /&gt;</span> <span class="comment">&lt;!-- Use "/images/female.png" image --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">th:case</span>=<span class="string">"*"</span>&gt;</span>Unknown<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">td</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--在页面先显示，然后再在显示的数据基础上进行修改--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-group col-lg-6"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">label</span>&gt;</span>姓名<span class="tag">&lt;<span class="name">span</span>&gt;</span>&amp;nbsp;<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span></div><div class="line"> 　　<span class="tag">&lt;<span class="name">！--除非resume对象的name属性值为null，否则就用name的值作为placeholder值--</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">th:unless</span>=<span class="string">"$&#123;resumes.name&#125; eq '' or $&#123;resumes.name&#125; eq null"</span>  </span></div><div class="line">           <span class="attr">data-required</span>=<span class="string">"true"</span> <span class="attr">th:placeholder</span>=<span class="string">"$&#123;resumes.name&#125;"</span> /&gt;</div><div class="line">　　 <span class="comment">&lt;!--除非resume对象的name属性不为空，否则就定义一个field方便封装对象，并用placeholder提示--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">th:field</span>=<span class="string">"$&#123;resume.name&#125;"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">th:unless</span>=<span class="string">"$&#123;resumes.name&#125; ne null"</span> </span></div><div class="line">           <span class="attr">data-required</span>=<span class="string">"true"</span> <span class="attr">th:placeholder</span>=<span class="string">"请填写您的真实姓名"</span>  /&gt;</div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 增加class="enhanced"当balance大雨10000 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">td</span> <span class="attr">th:class</span>=<span class="string">"$&#123;customer.balance gt 10000&#125; ? 'enhanced'"</span> <span class="attr">th:text</span>=<span class="string">"$&#123;customer.balance&#125;"</span>&gt;</span>350<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>–根据后台数据选中select的选项<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-group col-lg-6"</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">label</span> &gt;</span>性别<span class="tag">&lt;<span class="name">span</span>&gt;</span>&amp;nbsp;Sex:<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">select</span> <span class="attr">th:field</span>=<span class="string">"$&#123;resume.gender&#125;"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">th:switch</span>=<span class="string">"$&#123;resumes.gender.toString()&#125;"</span></span></div><div class="line">           <span class="attr">data-required</span>=<span class="string">"true"</span>&gt;</div><div class="line">             <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"男"</span> <span class="attr">th:case</span>=<span class="string">"'男'"</span> <span class="attr">th:selected</span>=<span class="string">"selected"</span> &gt;</span>男<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">             <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"女"</span> <span class="attr">th:case</span>=<span class="string">"'女'"</span> <span class="attr">th:selected</span>=<span class="string">"selected"</span> &gt;</span>女<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">             <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span>请选择<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">     <span class="tag">&lt;/<span class="name">select</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>因为gender是定义的Enum（枚举）类型，所以要用toString方法。用th:switch指定传出的变量,用th:case对变量的值进行匹配。！”请选择”放在第一项会出现永远选择的是这个选项。或者用th:if<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">'form-group col-lg-4'</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">select</span> <span class="attr">class</span>=<span class="string">'form-control'</span> <span class="attr">name</span>=<span class="string">"skill[4].proficiency"</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">option</span> &gt;</span>掌握程度<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">th:if</span>=<span class="string">"$&#123;skill.level eq '一般'&#125;"</span> <span class="attr">th:selected</span>=<span class="string">"selected"</span>&gt;</span>一般<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">                 <span class="tag">&lt;<span class="name">option</span> <span class="attr">th:if</span>=<span class="string">"$&#123;skill.level eq '熟练'&#125;"</span> <span class="attr">th:selected</span>=<span class="string">"selected"</span>&gt;</span>熟练<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">                 <span class="tag">&lt;<span class="name">option</span> <span class="attr">th:if</span>=<span class="string">"$&#123;skill.level eq '精通'&#125;"</span> <span class="attr">th:selected</span>=<span class="string">"selected"</span>&gt;</span>精通<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">           <span class="tag">&lt;/<span class="name">select</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>–spring表达式语言<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">xmlns:th</span>=<span class="string">"http://www.thymeleaf.org"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>Thymeleaf tutorial: exercise 10<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"../../../css/main-static.css"</span> <span class="attr">th:href</span>=<span class="string">"@&#123;/css/main.css&#125;"</span> /&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Thymeleaf tutorial - Solution for exercise 10: Spring Expression language<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line">  </div><div class="line">        <span class="tag">&lt;<span class="name">h2</span>&gt;</span>Arithmetic expressions<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"label"</span>&gt;</span>Four multiplied by minus six multiplied by minus two module seven:<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"answer"</span> <span class="attr">th:text</span>=<span class="string">"$&#123;4 * -6 * -2 % 7&#125;"</span>&gt;</span>123<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"> </div><div class="line">        <span class="tag">&lt;<span class="name">h2</span>&gt;</span>Object navigation<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"label"</span>&gt;</span>Description field of paymentMethod field of the third element of customerList bean:<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"answer"</span> <span class="attr">th:text</span>=<span class="string">"$&#123;customerList[2].paymentMethod.description&#125;"</span>&gt;</span>Credit card<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"> </div><div class="line">        <span class="tag">&lt;<span class="name">h2</span>&gt;</span>Object instantiation<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"label"</span>&gt;</span>Current time milliseconds:<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"answer"</span> <span class="attr">th:text</span>=<span class="string">"$&#123;new java.util.Date().getTime()&#125;"</span>&gt;</span>22-Jun-2013<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">        </div><div class="line">        <span class="tag">&lt;<span class="name">h2</span>&gt;</span>T operator<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"label"</span>&gt;</span>Random number:<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"answer"</span> <span class="attr">th:text</span>=<span class="string">"$&#123;T(java.lang.Math).random()&#125;"</span>&gt;</span>123456<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>–内联<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"body"</span>&gt;</span>Message body:<span class="tag">&lt;/<span class="name">label</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">textarea</span> <span class="attr">id</span>=<span class="string">"body"</span> <span class="attr">name</span>=<span class="string">"body"</span> <span class="attr">th:inline</span>=<span class="string">"text"</span>&gt;</span></div><div class="line">Dear [[$&#123;customerName&#125;]],</div><div class="line"></div><div class="line">it is our sincere pleasure to congratulate your in your birthday:</div><div class="line">    Happy birthday [[$&#123;customerName&#125;]]!!!</div><div class="line"></div><div class="line">See you soon, [[$&#123;customerName&#125;]].</div><div class="line"></div><div class="line">Regards,</div><div class="line">    The Thymeleaf team</div><div class="line"><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>–内联JS <js起止加入如下代码，否则引号嵌套或者"<"">"等不能用><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*&lt;![CDATA[*/</span></div><div class="line">……</div><div class="line"><span class="comment">/*]]&gt;*/</span></div></pre></td></tr></table></figure></js起止加入如下代码，否则引号嵌套或者"<""></p>
+<p>–js附加代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*[+</span></div><div class="line">var msg = 'This is a working application';</div><div class="line">+]*/</div></pre></td></tr></table></figure></p>
+<h2 id="4-不常用"><a href="#4-不常用" class="headerlink" title="4.不常用"></a>4.不常用</h2><p>–表达式<br>　　2）文字<br>        a)文本文字                        ‘one text’,’Another one’,……<br>        b)数字文字                        0,34,3.0,12.3，……<br>        c)布尔文字                        true，flase<br>        d)空文字                            null<br>        e)文字标记                         one，sometext，main，……<br>    3）文本处理<br>        a)字符串连接                       +<br>        b)文字替换                           | The name id ${name} |<br>    4）算术表达式<br>        a)基本表达式                        +，-，*，/，%<br>        b)减号（一元运算符）           -<br>    5）布尔表达式<br>        a)基本表达式                        and，or<br>        b)布尔否定（一元运算符）    ！,not<br>    6）比较和相等<br>        a)比较                                &gt;，&lt;，&gt;=，&lt;=(gt，lt，ge，le)<br>        b)相等表达式                       ==，！=(eq，ne)<br>    7）条件表达式<br>         a)If-then                            (if) ? (then)<br>         b)If-then-else                    (if) ? (then) : (else)<br>         c)Default                           (value) ? : (defaltvalue)<br>       所有这些标签能够结合和嵌套：<br>          User is of type ‘ + (${user.isAdmin()} ? ‘Administrator’ : (${user.type} ?: ‘Unknown’))<br>　　–表达式基本对象</p>
+<pre><code>   在上下文变量评估OGNL表达式时，一些对象表达式可获得更高的灵活性。这些对象将由#号开始引用。
+   - #ctx: 上下文对象.
+   - #vars: 上下文变量.
+   - #locale: 上下文语言环境.
+   - #httpServletRequest: (仅在web上文)HttpServletRequest 对象.
+   - #httpSession: (仅在web上文)  HttpSession 对象.
+ --表达式功能对象
+   - #dates:java.util.Date对象的实用方法。 
+   - #calendars:和dates类似, 但是 java.util.Calendar 对象.
+   - #numbers: 格式化数字对象的实用方法。
+   - #strings: 字符创对象的实用方法： contains, startsWith, prepending/appending等.
+   - #objects: 对objects操作的实用方法。
+   - #bools: 对布尔值求值的实用方法。
+   - #arrays: 数组的实用方法。
+   - #lists: list的实用方法。
+   - #sets: set的实用方法。
+   - #maps: map的实用方法。
+   - #aggregates: 对数组或集合创建聚合的实用方法。
+   - #messages: 在表达式中获取外部信息的实用方法。
+   - #ids: 处理可能重复的id属性的实用方法 (比如：迭代的结果)。
+--给特定的属性设值
+   下面是用th:action给action设值。
+      &lt;form action=&quot;subscribe.html&quot; th:action=&quot;@{/subscribe}&quot;&gt;
+   还有很多这样的属性，它们每一个都针对一个特定的XHTML或者HTML5属性：
+       th:text=&quot;${data}&quot;
+           将data的值替换该属性所在标签的body。字符常量要用引号，比如th:text=&quot;&apos;hello world&apos;&quot;,th:text=&quot;2011+3&quot;,th:text=&quot;&apos;my name is &apos;+${user.name}&quot;
+       th:utext
+           和th:text的区别是&quot;unescaped text&quot;。
+       th:with
+           定义变量，th:with=&quot;isEven=${prodStat.count}%2==0&quot;，定义多个变量可以用逗号分隔。
+       th:attr
+           设置标签属性，多个属性可以用逗号分隔，比如th:attr=&quot;src=@{/image/aa.jpg},title=#{logo}&quot;，此标签不太优雅，一般用的比较少。
+       th:[tagAttr]
+           设置标签的各个属性，比如th:value,th:action等。
+           可以一次设置两个属性，比如：th:alt-title=&quot;#{logo}&quot;
+              对属性增加前缀和后缀，用th:attrappend，th:attrprepend,比如：th:attrappend=&quot;class=${&apos; &apos;+cssStyle}&quot;
+              对于属性是有些特定值的，比如checked属性，thymeleaf都采用bool值，比如th:checked=${user.isActive}
+       th:each
+            循环，&lt;tr th:each=&quot;user,userStat:${users}&quot;&gt;,userStat是状态变量，有 index,count,size,current,even,odd,first,last等属性，如果没有显示设置状态变量，    thymeleaf会默 认给个“变量名+Stat&quot;的状态变量。
+       th:if or th:unless
+           条件判断，支持布尔值，数字（非零为true)，字符，字符串等。
+       th:switch，th:case
+           选择语句。 th:case=&quot;*&quot;表示default case。
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/thymeleaf/" rel="tag"># thymeleaf</a>
+          
+            <a href="/tags/模板引擎/" rel="tag"># 模板引擎</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2013/03/15/maven聚合工程的创建和聚合工程的打包/" rel="next" title="maven聚合工程的创建和聚合工程的打包">
+                <i class="fa fa-chevron-left"></i> maven聚合工程的创建和聚合工程的打包
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/02/13/hello-world/" rel="prev" title="Hello World">
+                Hello World <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2013/05/03/thymeleaf-基础/"
+           data-title="thymeleaf 基础" data-url="http://yoursite.com/2013/05/03/thymeleaf-基础/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="李士超" />
+          <p class="site-author-name" itemprop="name">李士超</p>
+          <p class="site-description motion-element" itemprop="description">精通Java、C、C++、HTML、ECMAScript、Python等语言的拼写</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/codelsc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/p/1005052817241284/home" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#（一）Thymeleaf-是个什么？"><span class="nav-number">1.</span> <span class="nav-text">（一）Thymeleaf 是个什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Thymeleaf-在有网络和无网络的环境下皆可运行，即它可以让美工在浏览器查看页面的静态效果，也可以让程序员在服务器查看带数据的动态页面效果。这是由于它支持-html原型，然后在html标签里增加额外的属性来达到模板-数据的展示方式。浏览器解释html时会忽略未定义的标签属性，所以-thymeleaf的模板可以静态地运行；当有数据返回到页面时，Thymeleaf标签会动态地替换掉静态内容，使页面动态显示。"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.Thymeleaf 在有网络和无网络的环境下皆可运行，即它可以让美工在浏览器查看页面的静态效果，也可以让程序员在服务器查看带数据的动态页面效果。这是由于它支持 html原型，然后在html标签里增加额外的属性来达到模板+数据的展示方式。浏览器解释html时会忽略未定义的标签属性，所以 thymeleaf的模板可以静态地运行；当有数据返回到页面时，Thymeleaf标签会动态地替换掉静态内容，使页面动态显示。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Thymeleaf-开箱即用的特性。它提供标准和spring标准两种方言，可以直接套用模板实现JSTL、OGNL表达式效果，避免每天套模板、该jstl、改标签的困扰。同时开发人员也可以扩展和创建自定义的方言。"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.Thymeleaf 开箱即用的特性。它提供标准和spring标准两种方言，可以直接套用模板实现JSTL、OGNL表达式效果，避免每天套模板、该jstl、改标签的困扰。同时开发人员也可以扩展和创建自定义的方言。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Thymeleaf-提供spring标准方言和一个与SpringMVC完美集成的可选模块，可以快速的实现表单绑定、属性编辑器、国际化等功能。"><span class="nav-number">1.0.3.</span> <span class="nav-text">3. Thymeleaf 提供spring标准方言和一个与SpringMVC完美集成的可选模块，可以快速的实现表单绑定、属性编辑器、国际化等功能。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#（二）应用"><span class="nav-number">2.</span> <span class="nav-text">（二）应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-简单的-Thymeleaf-应用"><span class="nav-number">2.1.</span> <span class="nav-text">1.简单的 Thymeleaf 应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1）只需加入thymeleaf-2-1-4-RELEASE-jar（http-www-thymeleaf-org-download-html-）包，若用maven，则加入如下配置"><span class="nav-number">2.1.1.</span> <span class="nav-text">1）只需加入thymeleaf-2.1.4.RELEASE.jar（http://www.thymeleaf.org/download.html ）包，若用maven，则加入如下配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2）然后增加头文件（如下）"><span class="nav-number">2.1.2.</span> <span class="nav-text">2）然后增加头文件（如下）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3）就可以用th标签动态替换掉静态数据了。如下图，后台传出的message会将静态数据“RedChair”替换掉，若访问静态页面，则显示数据“Red-Chair”。"><span class="nav-number">2.1.3.</span> <span class="nav-text">3）就可以用th标签动态替换掉静态数据了。如下图，后台传出的message会将静态数据“RedChair”替换掉，若访问静态页面，则显示数据“Red Chair”。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-整合spring"><span class="nav-number">2.2.</span> <span class="nav-text">2.整合spring</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1）加入thymeleaf-spring4-2-1-4-RELEASE-jar（http-www-thymeleaf-org-download-html-）包，若用maven，则加入如下配置"><span class="nav-number">2.2.1.</span> <span class="nav-text">1）加入thymeleaf-spring4-2.1.4.RELEASE.jar（http://www.thymeleaf.org/download.html ）包，若用maven，则加入如下配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2）在servlet配置文件中加入如下代码"><span class="nav-number">2.2.2.</span> <span class="nav-text">2）在servlet配置文件中加入如下代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3）将静态页面加到项目中，更改文件头，加入th标签即可。"><span class="nav-number">2.2.3.</span> <span class="nav-text">3）将静态页面加到项目中，更改文件头，加入th标签即可。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-th标签整理"><span class="nav-number">2.3.</span> <span class="nav-text">3.th标签整理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1）简单表达式"><span class="nav-number">2.3.1.</span> <span class="nav-text">1）简单表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2）常用的th标签"><span class="nav-number">2.3.2.</span> <span class="nav-text">2）常用的th标签</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-不常用"><span class="nav-number">2.4.</span> <span class="nav-text">4.不常用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李士超</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"codelsc"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("xYO3AFv5OcMkPglCtxOj8zj2-gzGzoHsz", "9jHXRydbYhTyRtWpYmTiH3cd");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>
